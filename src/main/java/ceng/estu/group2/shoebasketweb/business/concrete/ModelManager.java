@@ -90,4 +90,21 @@ public class ModelManager implements ModelService {
         }else
             return new ErrorDataResult<>("No such model.");
     }
+
+    @Override
+    public DataResult<Model> updatePrice(int id, double price) {
+        Optional<Model> model = this.modelDao.findById(id);
+        if(model.isPresent()) {
+            Model s = model.get();
+            s.setPrice(price);
+            return new SuccessDataResult<>(this.modelDao.save(s));
+        }
+        else
+            return new ErrorDataResult<>("No such shoe.");
+    }
+
+    @Override
+    public DataResult<Model> updateModel(Model model) {
+        return new SuccessDataResult<>(this.modelDao.save(model));
+    }
 }

@@ -50,4 +50,19 @@ public class ModelController {
         return this.modelService.getShoeByModelIdAndColorAndSize(modelId, color, size);
     }
 
+    /**
+     * Updates the stock of given id
+     *
+     * @param id id of shoe to update the stock
+     * */
+    @PatchMapping("/{id}")
+    public DataResult<Model> updateShoeStock(@PathVariable int id, @RequestParam double price) {
+        return this.modelService.updatePrice(id, price);
+    }
+
+    @PutMapping("/{id}")
+    public DataResult<Model> updateModel(@RequestBody Model model) {
+        return this.modelService.updateModel(model);
+    }
+
 }

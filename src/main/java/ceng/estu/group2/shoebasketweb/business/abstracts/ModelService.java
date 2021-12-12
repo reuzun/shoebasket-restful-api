@@ -21,4 +21,8 @@ public interface ModelService {
     DataResult<Set<Integer>> getShoesSizesByModelIdAndColor(int modelId, String color);
 
     DataResult<Shoe> getShoeByModelIdAndColorAndSize(int modelId, String color, int size);
+
+    DataResult<Model> updatePrice(int id, double price);
+
+    DataResult<Model> updateModel(Model model);
 }
