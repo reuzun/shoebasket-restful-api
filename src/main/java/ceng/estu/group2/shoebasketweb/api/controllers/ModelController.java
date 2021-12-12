@@ -56,7 +56,7 @@ public class ModelController {
      * @param id id of shoe to update the stock
      * */
     @PatchMapping("/{id}")
-    public DataResult<Model> updateShoeStock(@PathVariable int id, @RequestParam double price) {
+    public DataResult<Model> updatePrice(@PathVariable int id, @RequestParam double price) {
         return this.modelService.updatePrice(id, price);
     }
 
