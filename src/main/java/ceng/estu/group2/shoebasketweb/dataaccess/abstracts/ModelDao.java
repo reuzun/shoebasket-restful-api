@@ -4,6 +4,8 @@ import ceng.estu.group2.shoebasketweb.entities.Model;
 import ceng.estu.group2.shoebasketweb.entities.Shoe;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 /**
  * @author reuzun
  */

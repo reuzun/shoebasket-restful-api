@@ -1,15 +1,15 @@
 package ceng.estu.group2.shoebasketweb.business.concrete;
 
 import ceng.estu.group2.shoebasketweb.business.abstracts.ShoeService;
-import ceng.estu.group2.shoebasketweb.core.util.results.DataResult;
-import ceng.estu.group2.shoebasketweb.core.util.results.SuccessDataResult;
+import ceng.estu.group2.shoebasketweb.core.util.results.*;
 import ceng.estu.group2.shoebasketweb.dataaccess.abstracts.ShoeDao;
-import ceng.estu.group2.shoebasketweb.dataaccess.concretes.ShoeRepositoryImpl;
+import ceng.estu.group2.shoebasketweb.dataaccess.concretes.ModelRepositoryImpl;
 import ceng.estu.group2.shoebasketweb.entities.Shoe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author reuzun
@@ -18,21 +18,45 @@ import java.util.List;
 public class ShoeManager implements ShoeService {
 
     private final ShoeDao shoeDao;
-    private final ShoeRepositoryImpl shoeRepositoryImpl;
 
     @Autowired
-    public ShoeManager(ShoeDao shoeDao, ShoeRepositoryImpl shoeRepositoryImpl){
+    public ShoeManager(ShoeDao shoeDao){
         this.shoeDao = shoeDao;
-        this.shoeRepositoryImpl = shoeRepositoryImpl;
+    }
+
+
+
+
+
+    @Override
+    public DataResult<Shoe> addShoe(Shoe shoe) {
+        return new SuccessDataResult<>(this.shoeDao.save(shoe), "Shoe added.");
     }
 
     @Override
-    public DataResult<List<Shoe>> getAll() {
-        return new SuccessDataResult<>(this.shoeDao.findAll());
+    public DataResult<Shoe> getShoeById(int id) {
+        Optional<Shoe> shoe = this.shoeDao.findById(id);
+        if(shoe.isPresent())
+            return new SuccessDataResult<>(shoe.get());
+        else
+            return new ErrorDataResult<>("No such shoe.");
+        //return new SuccessDataResult<>(this.shoeDao.getById(id));
     }
 
     @Override
-    public DataResult<List<Shoe>> getRandomShoes() {
-        return this.shoeRepositoryImpl.getRandomShoes(10);
+    public DataResult<Shoe> updateShoe(Shoe shoe) {
+        return new SuccessDataResult<>(this.shoeDao.save(shoe));
+    }
+
+    @Override
+    public DataResult<Shoe> updateShoeStock(int id, int stock) {
+        Optional<Shoe> shoe = this.shoeDao.findById(id);
+        if(shoe.isPresent()) {
+            Shoe s = shoe.get();
+            s.setCount(stock);
+            return new SuccessDataResult<>(this.shoeDao.save(s));
+        }
+        else
+            return new ErrorDataResult<>("No such shoe.");
     }
 }

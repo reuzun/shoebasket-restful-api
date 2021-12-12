@@ -2,7 +2,8 @@ package ceng.estu.group2.shoebasketweb.dataaccess.concretes;
 
 import ceng.estu.group2.shoebasketweb.core.util.results.DataResult;
 import ceng.estu.group2.shoebasketweb.core.util.results.SuccessDataResult;
-import ceng.estu.group2.shoebasketweb.dataaccess.abstracts.ShoeCustomRepository;
+import ceng.estu.group2.shoebasketweb.dataaccess.abstracts.ModelCustomRepository;
+import ceng.estu.group2.shoebasketweb.entities.Model;
 import ceng.estu.group2.shoebasketweb.entities.Shoe;
 import org.springframework.stereotype.Repository;
 
@@ -14,14 +15,18 @@ import java.util.List;
  * @author reuzun
  */
 @Repository
-public class ShoeRepositoryImpl implements ShoeCustomRepository {
+public class ModelRepositoryImpl implements ModelCustomRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Returns random n shoes.
+     * @param limit Number of shoes to return.
+     * */
     @Override
-    public DataResult<List<Shoe>> getRandomShoes(int limit) {
-        return new SuccessDataResult<>(entityManager.createQuery("SELECT p FROM Shoe p ORDER BY RAND()",
-                Shoe.class).setMaxResults(limit).getResultList());
+    public DataResult<List<Model>> getRandomModel(int limit) {
+        return new SuccessDataResult<>(entityManager.createQuery("SELECT p FROM Model p ORDER BY RAND()",
+                Model.class).setMaxResults(limit).getResultList());
     }
 }
