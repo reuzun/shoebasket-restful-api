@@ -1,8 +1,6 @@
 package ceng.estu.group2.shoebasketweb.dto;
 
-import ceng.estu.group2.shoebasketweb.entities.User;
-import ceng.estu.group2.shoebasketweb.entities.UserAdress;
-import ceng.estu.group2.shoebasketweb.entities.UserPhoneNo;
+import ceng.estu.group2.shoebasketweb.entities.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +35,8 @@ public class UserDto {
 
     List<String> phoneNumbers;
 
+    List<Integer> basket;
+
     public UserDto(User user){
         this.username = user.getUsername();
         this.password = user.getPassword();
@@ -52,6 +52,12 @@ public class UserDto {
         this.phoneNumbers = user.getPhoneNumbers().stream()
                 .map(UserPhoneNo::getPhoneNo)
                 .collect(Collectors.toList());
+
+        this.basket = user.getBasket().stream()
+                .map(Basket::getShoe)
+                .map(Shoe::getShoeId)
+                .collect(Collectors.toList());
+
 
     }
 

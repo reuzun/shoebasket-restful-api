@@ -1,11 +1,16 @@
 package ceng.estu.group2.shoebasketweb.api.controllers;
 
+import ceng.estu.group2.shoebasketweb.business.abstracts.BasketService;
 import ceng.estu.group2.shoebasketweb.business.abstracts.UserService;
 import ceng.estu.group2.shoebasketweb.core.util.results.DataResult;
 import ceng.estu.group2.shoebasketweb.core.util.results.Result;
+import ceng.estu.group2.shoebasketweb.core.util.results.SuccessDataResult;
+import ceng.estu.group2.shoebasketweb.dataaccess.abstracts.BasketDao;
 import ceng.estu.group2.shoebasketweb.dto.UserDto;
+import ceng.estu.group2.shoebasketweb.entities.Basket;
 import ceng.estu.group2.shoebasketweb.entities.Shoe;
 import ceng.estu.group2.shoebasketweb.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,9 +21,22 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final BasketService basketService;
 
-    public UserController(UserService userService){
+    @Autowired
+    public UserController(UserService userService, BasketService basketService){
         this.userService = userService;
+        this.basketService = basketService;
+    }
+
+    @PostMapping("/{username}/basket/{shoeid}")
+    public DataResult<Basket> addShoeToBasket(@PathVariable String username, @PathVariable int shoeid){
+        return this.basketService.add(username, shoeid);
+    }
+
+    @DeleteMapping("/{username}/basket/{shoeid}")
+    public DataResult<Basket> deleteShoeFromBasket(@PathVariable String username, @PathVariable int shoeid){
+        return this.basketService.delete(username, shoeid);
     }
 
     @GetMapping("/{username}")

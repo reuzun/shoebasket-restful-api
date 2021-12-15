@@ -1,10 +1,13 @@
 package ceng.estu.group2.shoebasketweb.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author reuzun
@@ -14,7 +17,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="shoe")
-public class Shoe {
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","basket"})
+public class Shoe{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +34,11 @@ public class Shoe {
     @Column(name="COUNT")
     private int count;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="modelID")
     private Model model;
 
+
+    @OneToMany(mappedBy = "shoe")
+    private List<Basket> basket;
 }

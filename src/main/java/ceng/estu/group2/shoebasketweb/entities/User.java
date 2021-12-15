@@ -44,5 +44,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<UserPhoneNo> phoneNumbers;
 
+    @OneToMany(mappedBy = "user")
+    private List<Basket> basket;
+
 
 }
