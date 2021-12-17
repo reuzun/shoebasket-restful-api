@@ -15,6 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class BaseModel {
+    private int modelId;
     private String modelName;
     private String brandName;
     private String type;

@@ -12,9 +12,11 @@ import ceng.estu.group2.shoebasketweb.dto.RatedModelsDto;
 import ceng.estu.group2.shoebasketweb.entities.Model;
 import ceng.estu.group2.shoebasketweb.entities.RatedModels;
 import ceng.estu.group2.shoebasketweb.entities.Shoe;
+import ceng.estu.group2.shoebasketweb.requests.ModelRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -38,7 +40,7 @@ public class ModelManager implements ModelService {
     }
 
     @Override
-    public DataResult<List<Model>> getRandomShoes(int limit) {
+    public DataResult<List<ModelDto>> getRandomModels(int limit) {
         return this.modelRepositoryImpl.getRandomModel(limit);
     }
 
@@ -52,50 +54,6 @@ public class ModelManager implements ModelService {
 
     }
 
-    @Override
-    public DataResult<Set<String>> getShoesColorsByModelId(int modelId) {
-        Optional<Model> model = this.modelDao.findById(modelId);
-        if(model.isPresent()) {
-            List<Shoe> shoeList = model.get().getShoeList();
-            Set<String> colorList = shoeList.stream()
-                    .map(Shoe::getColor)
-                    .collect(Collectors.toSet());
-            return new SuccessDataResult<>(colorList, "Colors are listed.");
-        }else
-            return new ErrorDataResult<>("No such model.");
-    }
-
-    @Override
-    public DataResult<Set<Integer>> getShoesSizesByModelIdAndColor(int modelId, String color) {
-        Optional<Model> model = this.modelDao.findById(modelId);
-        if(model.isPresent()) {
-            List<Shoe> shoeList = model.get().getShoeList();
-            Set<Integer> colorList = shoeList.stream()
-                    .filter(e->e.getColor().equals(color))
-                    .map(Shoe::getSize)
-                    .collect(Collectors.toSet());
-            return new SuccessDataResult<>(colorList, "Sizes are listed due to color.");
-        }else
-            return new ErrorDataResult<>("No such model.");
-    }
-
-    @Override
-    public DataResult<Shoe> getShoeByModelIdAndColorAndSize(int modelId, String color, int size) {
-        Optional<Model> model = this.modelDao.findById(modelId);
-        if(model.isPresent()) {
-            List<Shoe> shoeList = model.get().getShoeList();
-            try {
-                Shoe shoe = shoeList.stream()
-                        .filter(e -> e.getColor().equals(color))
-                        .filter(e -> e.getSize() == size)
-                        .findFirst().get();
-                return new SuccessDataResult<>(shoe, "Sizes are listed due to color.");
-            }catch (Exception err){
-                return new ErrorDataResult<>("No shoe with selected color and size is found.");
-            }
-        }else
-            return new ErrorDataResult<>("No such model.");
-    }
 
     @Override
     public DataResult<Model> updatePrice(int id, double price) {
@@ -109,12 +67,7 @@ public class ModelManager implements ModelService {
             return new ErrorDataResult<>("No such shoe.");
     }
 
-    @Override
-    public DataResult<Model> updateModel(int modelId, ModelDto modelDto) {
-        Model model = this.modelDao.getById(modelId);
-        ModelConverter.copyFields(modelDto, model);
-        return new SuccessDataResult<>(this.modelDao.save(model));
-    }
+
 
     @Override
     public DataResult<List<RatedModelsDto>> getRates(int id) {
@@ -125,18 +78,42 @@ public class ModelManager implements ModelService {
     }
 
     @Override
-    public DataResult<RatedModels> addRate(int id, RatedModelsDto ratedModelsDto) {
+    public DataResult<RatedModelsDto> addRate(int id, RatedModelsDto ratedModelsDto) {
         if(ratedModelsDto.getStar() > 5 || ratedModelsDto.getStar() < 1)
             return new ErrorDataResult<>(null ,"Invalid Rating");
-        RatedModels ratedModels = RatedModelsConverter.RatedModelsDtoToRatedModels(ratedModelsDto);
-        //ratedModels.getRatedModelsPk().setModelId(id);
-        return new SuccessDataResult<>(this.ratedModelsDao.save(ratedModels), "Success");
+
+
+        RatedModels ratedModels = this.ratedModelsDao.findByUser_UsernameAndModel_ModelId(ratedModelsDto.getUsername(), id);
+        if(null != ratedModels){
+            ratedModels.setStar(ratedModelsDto.getStar());
+            this.ratedModelsDao.save(ratedModels);
+            return new SuccessDataResult<>(ratedModelsDto, "Updated");
+        }else {
+
+            ratedModels = RatedModelsConverter.RatedModelsDtoToRatedModels(ratedModelsDto);
+            ratedModels.getModel().setModelId(id);
+            this.ratedModelsDao.save(ratedModels);
+
+            return new SuccessDataResult<>(ratedModelsDto, "Added");
+        }
     }
 
     @Override
-    public Result addModel(ModelDto modelDto) {
-        this.modelDao.save( ModelConverter.ModelDtoToModel(modelDto) );
+    public Result addModel(ModelRequest modelRequest) {
+        this.modelDao.save( ModelConverter.copyRequest(modelRequest) );
         return new SuccessResult("Model added");
+    }
+
+    @Override
+    public DataResult<ModelDto> getById(int id) {
+        return new SuccessDataResult<>(ModelConverter.ModelToModelDto(this.modelDao.getById(id)), "success");
+    }
+
+    @Override
+    public DataResult<Model> updateModel(int modelId, ModelRequest modelRequest) {
+        Model model = this.modelDao.getById(modelId);
+        ModelConverter.copyRequestFields(modelRequest, model);
+        return new SuccessDataResult<>(this.modelDao.save(model));
     }
 
 

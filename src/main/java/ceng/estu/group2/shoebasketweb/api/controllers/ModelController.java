@@ -8,11 +8,11 @@ import ceng.estu.group2.shoebasketweb.dto.RatedModelsDto;
 import ceng.estu.group2.shoebasketweb.entities.Model;
 import ceng.estu.group2.shoebasketweb.entities.RatedModels;
 import ceng.estu.group2.shoebasketweb.entities.Shoe;
+import ceng.estu.group2.shoebasketweb.requests.ModelRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author reuzun
@@ -30,8 +30,8 @@ public class ModelController {
     }
 
     @GetMapping("/random")
-    public DataResult<List<Model>> getRandomShoes(@RequestParam(defaultValue = "10") int limit) {
-        return this.modelService.getRandomShoes(limit);
+    public DataResult<List<ModelDto>> getRandomModels(@RequestParam(defaultValue = "10") int limit) {
+        return this.modelService.getRandomModels(limit);
     }
 
     @GetMapping("/{modelId}/shoes")
@@ -39,20 +39,20 @@ public class ModelController {
         return this.modelService.getShoesByModelId(modelId);
     }
 
-    @GetMapping("/{modelId}/shoes/colors")
-    public DataResult<Set<String>> getShoesColorsByModelId(@PathVariable int modelId){
-        return this.modelService.getShoesColorsByModelId(modelId);
-    }
-
-    @GetMapping("/{modelId}/shoes/color/{color}/sizes")
-    public DataResult<Set<Integer>> getShoesSizesByModelIdAndColor(@PathVariable int modelId, @PathVariable String color){
-        return this.modelService.getShoesSizesByModelIdAndColor(modelId, color);
-    }
-
-    @GetMapping("/{modelId}/shoes/color/{color}/sizes/{size}")
-    public DataResult<Shoe> getShoeByModelIdAndColorAndSize(@PathVariable int modelId, @PathVariable String color, @PathVariable int size){
-        return this.modelService.getShoeByModelIdAndColorAndSize(modelId, color, size);
-    }
+//    @GetMapping("/{modelId}/shoes/colors")
+//    public DataResult<Set<String>> getShoesColorsByModelId(@PathVariable int modelId){
+//        return this.modelService.getShoesColorsByModelId(modelId);
+//    }
+//
+//    @GetMapping("/{modelId}/shoes/color/{color}/sizes")
+//    public DataResult<Set<Integer>> getShoesSizesByModelIdAndColor(@PathVariable int modelId, @PathVariable String color){
+//        return this.modelService.getShoesSizesByModelIdAndColor(modelId, color);
+//    }
+//
+//    @GetMapping("/{modelId}/shoes/color/{color}/sizes/{size}")
+//    public DataResult<Shoe> getShoeByModelIdAndColorAndSize(@PathVariable int modelId, @PathVariable String color, @PathVariable int size){
+//        return this.modelService.getShoeByModelIdAndColorAndSize(modelId, color, size);
+//    }
 
     /**
      * Updates the stock of given id
@@ -64,13 +64,10 @@ public class ModelController {
         return this.modelService.updatePrice(id, price);
     }
 
-    @PutMapping("/{id}")
-    public DataResult<Model> updateModel(@PathVariable int id , @RequestBody ModelDto model) {
-        return this.modelService.updateModel(id, model);
-    }
 
-    @PostMapping("/{id}/rates")
-    public DataResult<RatedModels> rate(@PathVariable int id, @RequestBody RatedModelsDto ratedModelsDto) {
+
+    @PutMapping("/{id}/rates")
+    public DataResult<RatedModelsDto> rate(@PathVariable int id, @RequestBody RatedModelsDto ratedModelsDto) {
         return this.modelService.addRate(id, ratedModelsDto);
     }
 
@@ -79,9 +76,19 @@ public class ModelController {
         return this.modelService.getRates(id);
     }
 
+    @GetMapping("/{id}")
+    public DataResult<ModelDto> getById(@PathVariable int id) {
+        return this.modelService.getById(id);
+    }
+
     @PostMapping("")
-    public Result addModel(@RequestBody ModelDto modelDto) {
-        return this.modelService.addModel(modelDto);
+    public Result addModel(@RequestBody ModelRequest modelRequest) {
+        return this.modelService.addModel(modelRequest);
+    }
+
+    @PutMapping("/{id}")
+    public DataResult<Model> updateModel(@PathVariable int id , @RequestBody ModelRequest modelRequest) {
+        return this.modelService.updateModel(id, modelRequest);
     }
 
 }

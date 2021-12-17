@@ -3,12 +3,16 @@ package ceng.estu.group2.shoebasketweb.entities;
 import ceng.estu.group2.shoebasketweb.entities.abstracts.BaseModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.lang.Nullable;
 
 /**
  * @author reuzun
@@ -46,6 +50,6 @@ public class Model extends BaseModel {
 
     @JsonIgnore
     @OneToMany(mappedBy = "model")
-    private List<RatedModels> rates;
+    private List<RatedModels> rates = new ArrayList<>();
 
 }

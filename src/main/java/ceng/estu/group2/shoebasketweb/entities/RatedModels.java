@@ -1,5 +1,6 @@
 package ceng.estu.group2.shoebasketweb.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 
 /**
  * @author reuzun
@@ -16,28 +18,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "rated_models")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","model"})
+
 public class RatedModels {
 
-    @Embeddable
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class RatedModelsPk implements java.io.Serializable{
-        @Column(name = "username")
-        private String username;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
 
-        private int modelId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "Username")
+    private User user;
 
-    @EmbeddedId
-    RatedModelsPk ratedModelsPk;
-
-    @ManyToOne()
-    @MapsId(value = "modelId")
-    @JoinColumn(name = "modelId")
-    Model model;
+    @ManyToOne
+    @JoinColumn(name = "ModelId")
+    private Model model;
 
     @Column(name = "star")
     private int star;

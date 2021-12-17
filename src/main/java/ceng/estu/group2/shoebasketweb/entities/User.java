@@ -1,5 +1,6 @@
 package ceng.estu.group2.shoebasketweb.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -46,6 +47,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Basket> basket;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<RatedModels> ratedModels;
 
 
 }

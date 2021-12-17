@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import java.util.List;
 
 /**
  * @author reuzun
@@ -14,8 +15,11 @@ import javax.persistence.Column;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ModelDto extends BaseModel {
+    private int modelId;
     private String modelName;
     private String brandName;
     private String type;
     private double price;
+    List<String> colors;
+    List<Integer> sizes;
 }
