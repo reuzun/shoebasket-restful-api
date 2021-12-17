@@ -35,7 +35,7 @@ public class UserDto {
 
     List<String> phoneNumbers;
 
-    List<Integer> basket;
+    List<Shoe> basket;
 
     public UserDto(User user){
         this.username = user.getUsername();
@@ -55,7 +55,7 @@ public class UserDto {
 
         this.basket = user.getBasket().stream()
                 .map(Basket::getShoe)
-                .map(Shoe::getShoeId)
+                //.map(Shoe::getShoeId)
                 .collect(Collectors.toList());
 
 

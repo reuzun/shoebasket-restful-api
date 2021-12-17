@@ -1,5 +1,7 @@
 package ceng.estu.group2.shoebasketweb.entities;
 
+import ceng.estu.group2.shoebasketweb.entities.abstracts.BaseModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +19,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @NoArgsConstructor
 @Table(name="model")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler","shoeList"})
-public class Model {
+public class Model extends BaseModel {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ModelID")
     private int modelId;
 
@@ -41,5 +43,9 @@ public class Model {
 
     @OneToMany(mappedBy = "model")
     private List<Shoe> shoeList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "model")
+    private List<RatedModels> rates;
 
 }

@@ -1,5 +1,6 @@
 package ceng.estu.group2.shoebasketweb.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,24 +16,28 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "rated_models")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","model"})
 public class RatedModels {
 
     @Embeddable
     @Data
-    //@NoArgsConstructor
+    @NoArgsConstructor
     @AllArgsConstructor
     public static class RatedModelsPk implements java.io.Serializable{
         @Column(name = "username")
         private String username;
-        @Column(name = "ModelId")
+
+
         private int modelId;
-
-        public RatedModelsPk(){};
-
     }
 
     @EmbeddedId
     RatedModelsPk ratedModelsPk;
+
+    @ManyToOne()
+    @MapsId(value = "modelId")
+    @JoinColumn(name = "modelId")
+    Model model;
 
     @Column(name = "star")
     private int star;

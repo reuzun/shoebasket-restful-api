@@ -38,7 +38,7 @@ public class Shoe{
     @JoinColumn(name="modelID")
     private Model model;
 
-
+    @JsonIgnore
     @OneToMany(mappedBy = "shoe")
     private List<Basket> basket;
 }

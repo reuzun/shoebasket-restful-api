@@ -1,12 +1,16 @@
 package ceng.estu.group2.shoebasketweb.business.concrete;
 
 import ceng.estu.group2.shoebasketweb.business.abstracts.ModelService;
-import ceng.estu.group2.shoebasketweb.core.util.results.DataResult;
-import ceng.estu.group2.shoebasketweb.core.util.results.ErrorDataResult;
-import ceng.estu.group2.shoebasketweb.core.util.results.SuccessDataResult;
+import ceng.estu.group2.shoebasketweb.convertors.ModelConverter;
+import ceng.estu.group2.shoebasketweb.convertors.RatedModelsConverter;
+import ceng.estu.group2.shoebasketweb.core.util.results.*;
 import ceng.estu.group2.shoebasketweb.dataaccess.abstracts.ModelDao;
+import ceng.estu.group2.shoebasketweb.dataaccess.abstracts.RatedModelsDao;
 import ceng.estu.group2.shoebasketweb.dataaccess.concretes.ModelRepositoryImpl;
+import ceng.estu.group2.shoebasketweb.dto.ModelDto;
+import ceng.estu.group2.shoebasketweb.dto.RatedModelsDto;
 import ceng.estu.group2.shoebasketweb.entities.Model;
+import ceng.estu.group2.shoebasketweb.entities.RatedModels;
 import ceng.estu.group2.shoebasketweb.entities.Shoe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +28,13 @@ public class ModelManager implements ModelService {
 
     private final ModelDao modelDao;
     private final ModelRepositoryImpl modelRepositoryImpl;
+    private final RatedModelsDao ratedModelsDao;
 
     @Autowired
-    public ModelManager(ModelDao shoeDao, ModelRepositoryImpl modelRepositoryImpl){
+    public ModelManager(ModelDao shoeDao, ModelRepositoryImpl modelRepositoryImpl, RatedModelsDao ratedModelsDao){
         this.modelDao = shoeDao;
         this.modelRepositoryImpl = modelRepositoryImpl;
+        this.ratedModelsDao = ratedModelsDao;
     }
 
     @Override
@@ -104,7 +110,34 @@ public class ModelManager implements ModelService {
     }
 
     @Override
-    public DataResult<Model> updateModel(Model model) {
+    public DataResult<Model> updateModel(int modelId, ModelDto modelDto) {
+        Model model = this.modelDao.getById(modelId);
+        ModelConverter.copyFields(modelDto, model);
         return new SuccessDataResult<>(this.modelDao.save(model));
     }
+
+    @Override
+    public DataResult<List<RatedModelsDto>> getRates(int id) {
+
+        return new SuccessDataResult<>(this.modelDao.findById(id).get().getRates()
+                .stream().map(RatedModelsConverter::RatedModelsToRatedModelsDto)
+                .collect(Collectors.toList()));
+    }
+
+    @Override
+    public DataResult<RatedModels> addRate(int id, RatedModelsDto ratedModelsDto) {
+        if(ratedModelsDto.getStar() > 5 || ratedModelsDto.getStar() < 1)
+            return new ErrorDataResult<>(null ,"Invalid Rating");
+        RatedModels ratedModels = RatedModelsConverter.RatedModelsDtoToRatedModels(ratedModelsDto);
+        //ratedModels.getRatedModelsPk().setModelId(id);
+        return new SuccessDataResult<>(this.ratedModelsDao.save(ratedModels), "Success");
+    }
+
+    @Override
+    public Result addModel(ModelDto modelDto) {
+        this.modelDao.save( ModelConverter.ModelDtoToModel(modelDto) );
+        return new SuccessResult("Model added");
+    }
+
+
 }
