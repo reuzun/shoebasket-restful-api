@@ -13,6 +13,7 @@ import java.util.List;
 public interface RatedModelsService {
     //List<RatedModels> getAll();
 
-    DataResult<RatedModels> add(RatedModelsDto ratedModelsDto);
+    DataResult<RatedModels> add(int id, RatedModelsDto ratedModelsDto);
 
+    DataResult<RatedModels> getRates(int id);
 }

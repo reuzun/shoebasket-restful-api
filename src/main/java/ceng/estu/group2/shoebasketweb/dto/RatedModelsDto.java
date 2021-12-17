@@ -14,7 +14,7 @@ public class RatedModelsDto {
 
     private String username;
 
-    private int modelId;
+    //private int modelId;
 
     private int star;
 

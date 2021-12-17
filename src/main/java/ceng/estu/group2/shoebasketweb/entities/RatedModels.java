@@ -3,6 +3,7 @@ package ceng.estu.group2.shoebasketweb.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.persistence.*;
 
@@ -22,9 +23,9 @@ public class RatedModels {
     @AllArgsConstructor
     public static class RatedModelsPk implements java.io.Serializable{
         @Column(name = "username")
-        String username;
+        private String username;
         @Column(name = "ModelId")
-        int modelId;
+        private int modelId;
 
         public RatedModelsPk(){};
 
@@ -34,6 +35,6 @@ public class RatedModels {
     RatedModelsPk ratedModelsPk;
 
     @Column(name = "star")
-    int star;
+    private int star;
 
 }

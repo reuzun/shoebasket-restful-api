@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @author reuzun
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -29,9 +29,9 @@ public class UserController {
         this.basketService = basketService;
     }
 
-    @PostMapping("/{username}/basket/{shoeid}")
-    public DataResult<Basket> addShoeToBasket(@PathVariable String username, @PathVariable int shoeid){
-        return this.basketService.add(username, shoeid);
+    @PostMapping("/{username}/basket")
+    public DataResult<Basket> addShoeToBasket(@PathVariable String username, @RequestBody Shoe shoe){
+        return this.basketService.add(username, shoe.getShoeId());
     }
 
     @DeleteMapping("/{username}/basket/{shoeid}")

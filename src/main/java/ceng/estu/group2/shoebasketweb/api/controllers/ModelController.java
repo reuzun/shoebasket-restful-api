@@ -1,8 +1,11 @@
 package ceng.estu.group2.shoebasketweb.api.controllers;
 
 import ceng.estu.group2.shoebasketweb.business.abstracts.ModelService;
+import ceng.estu.group2.shoebasketweb.business.abstracts.RatedModelsService;
 import ceng.estu.group2.shoebasketweb.core.util.results.DataResult;
+import ceng.estu.group2.shoebasketweb.dto.RatedModelsDto;
 import ceng.estu.group2.shoebasketweb.entities.Model;
+import ceng.estu.group2.shoebasketweb.entities.RatedModels;
 import ceng.estu.group2.shoebasketweb.entities.Shoe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +18,16 @@ import java.util.Set;
  */
 
 @RestController
-@RequestMapping("/api/model")
+@RequestMapping("/api/models")
 public class ModelController {
 
     private final ModelService modelService;
+    private RatedModelsService ratedModelsService;
 
     @Autowired
-    public ModelController(ModelService modelService){
+    public ModelController(ModelService modelService, RatedModelsService ratedModelsService){
         this.modelService = modelService;
+        this.ratedModelsService = ratedModelsService;
     }
 
     @GetMapping("/random")
@@ -63,6 +68,16 @@ public class ModelController {
     @PutMapping("/{id}")
     public DataResult<Model> updateModel(@RequestBody Model model) {
         return this.modelService.updateModel(model);
+    }
+
+    @PostMapping("/{id}/rates")
+    public DataResult<RatedModels> rate(@PathVariable int id, @RequestBody RatedModelsDto ratedModelsDto) {
+        return this.ratedModelsService.add(id, ratedModelsDto);
+    }
+
+    @GetMapping("/{id}/rates")
+    public DataResult<RatedModels> getRates(@PathVariable int id) {
+        return this.ratedModelsService.getRates(id);
     }
 
 }

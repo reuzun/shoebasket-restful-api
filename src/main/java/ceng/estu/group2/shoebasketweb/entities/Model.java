@@ -37,7 +37,7 @@ public class Model {
     private double price;
 
     @Column(name="CustomerRating")
-    private Double customerRating	;
+    private Double customerRating;
 
     @OneToMany(mappedBy = "model")
     private List<Shoe> shoeList;

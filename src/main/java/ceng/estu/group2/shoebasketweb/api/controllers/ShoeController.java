@@ -16,7 +16,7 @@ import java.util.List;
  * @author reuzun
  */
 @RestController
-@RequestMapping("/api/shoe")
+@RequestMapping("/api/shoes")
 public class ShoeController {
 
     private final ShoeService shoeService;
@@ -33,7 +33,7 @@ public class ShoeController {
         return this.shoeService.getShoeById(id);
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public DataResult<Shoe> addShoe(@RequestBody(required = true) Shoe shoe) {
         return this.shoeService.addShoe(shoe);
     }

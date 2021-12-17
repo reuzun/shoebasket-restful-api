@@ -11,7 +11,7 @@ public class RatedModelsConverter {
     public static RatedModelsDto  RatedModelsToRatedModelsDto(RatedModels source){
         RatedModelsDto target = new RatedModelsDto();
         target.setUsername(source.getRatedModelsPk().getUsername());
-        target.setModelId(source.getRatedModelsPk().getModelId());
+        //target.setModelId(source.getRatedModelsPk().getModelId());
         target.setStar(source.getStar());
         return target;
     }
@@ -19,7 +19,7 @@ public class RatedModelsConverter {
         RatedModels target = new RatedModels();
         target.setRatedModelsPk(new RatedModels.RatedModelsPk());
         target.getRatedModelsPk().setUsername(source.getUsername());
-        target.getRatedModelsPk().setModelId(source.getModelId());
+        //target.getRatedModelsPk().setModelId(source.getModelId());
         target.setStar(source.getStar());
         return target;
     }
