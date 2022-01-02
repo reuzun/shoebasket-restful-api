@@ -37,6 +37,8 @@ public class UserDto {
 
     List<Shoe> basket;
 
+    List<BoughtShoe> boughtShoeList;
+
     public UserDto(User user){
         this.username = user.getUsername();
         this.password = user.getPassword();
@@ -58,6 +60,7 @@ public class UserDto {
                 //.map(Shoe::getShoeId)
                 .collect(Collectors.toList());
 
+        this.boughtShoeList = user.getBoughtShoeList();
 
     }
 

@@ -53,4 +53,7 @@ public class User {
     private List<RatedModels> ratedModels;
 
 
+    @OneToMany(mappedBy = "user")
+    List<BoughtShoe> boughtShoeList;
+
 }
