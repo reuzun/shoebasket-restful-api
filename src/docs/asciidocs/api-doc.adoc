@@ -1,0 +1,27 @@
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:copyright: reuzun
+:stylesheet: style.css
+
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+=== Request
+include::{snippets}/tags-list-example/http-request.adoc[]
+
+=== Parameters
+include::{snippets}/tags-list-example/request-parameters.adoc[]
+
+=== Fields
+include::{snippets}/tags-list-example/response-fields.adoc[]
+
+=== Example Response
+include::{snippets}/tags-list-example/http-response.adoc[]
