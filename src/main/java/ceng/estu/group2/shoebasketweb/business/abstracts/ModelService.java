@@ -37,5 +37,9 @@ public interface ModelService {
 
     Result addModel(ModelRequest modelRequest);
 
+    Result deleteModel(int modelId);
+
     DataResult<ModelDto> getById(int id);
+
+    DataResult<List<Model>> getAllByModelNameAndBrandNameOrderByModelIdDesc(String modelName, String brandName);
 }

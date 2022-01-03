@@ -2,26 +2,138 @@
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
-:toclevels: 4
+:toclevels: 2
 :sectlinks:
 :copyright: reuzun
-:stylesheet: style.css
+//:stylesheet: style.css
+:nofooter:
+
+// Alternative for stylesheet.
+// Also html can be written.
+++++
+<style>
+    code{
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    // https://stackoverflow.com/a/7220510
+    pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+    .string { color: green; }
+    .number { color: darkorange; }
+    .boolean { color: blue; }
+    .null { color: magenta; }
+    .key { color: red; }
+</style>
+
+<script>
+    // https://stackoverflow.com/a/7220510
+    function syntaxHighlight(json) {
+        json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+            var cls = 'number';
+            if (/^"/.test(match)) {
+                if (/:$/.test(match)) {
+                    cls = 'key';
+                } else {
+                    cls = 'string';
+                }
+            } else if (/true|false/.test(match)) {
+                cls = 'boolean';
+            } else if (/null/.test(match)) {
+                cls = 'null';
+            }
+            return '<span class="' + cls + '">' + match + '</span>';
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        let jsonElements = document.getElementsByClassName("json");
+        for(let i = 0; i < jsonElements.length; i++){
+            jsonElements[i].innerHTML = syntaxHighlight(
+                JSON.stringify(JSON.parse(jsonElements[i].innerText), null, 4)
+            );
+        }
+        /*jsonElement.innerHTML = syntaxHighlight(
+            JSON.stringify(JSON.parse(jsonElement.innerText), null, 4)
+        );*/
+    })
+</script>
+++++
 
 
 [[overview]]
-= Overview
+== Overview
+This is the documentation of shoebasket api.
+
+[[overview-Model]]
+== Model
 
 [[overview-http-verbs]]
-== HTTP verbs
+=== Random Model
 
-=== Request
-include::{snippets}/tags-list-example/http-request.adoc[]
+==== Request
+include::{snippets}/model/getRandomModels/http-request.adoc[]
 
-=== Parameters
-include::{snippets}/tags-list-example/request-parameters.adoc[]
+==== Parameters
+include::{snippets}/model/getRandomModels/request-parameters.adoc[]
 
-=== Fields
-include::{snippets}/tags-list-example/response-fields.adoc[]
+==== Fields
+include::{snippets}/model/getRandomModels/response-fields.adoc[]
 
-=== Example Response
-include::{snippets}/tags-list-example/http-response.adoc[]
+==== Example Response
+include::{snippets}/model/getRandomModels/http-response.adoc[]
+
+'''
+
+[[overview-http-verbs2]]
+=== Shoes of Model
+
+==== Request
+include::{snippets}/model/getShoesOfModel/http-request.adoc[]
+
+==== Parameters
+include::{snippets}/model/getShoesOfModel/path-parameters.adoc[]
+
+==== Fields
+include::{snippets}/model/getShoesOfModel/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/getShoesOfModel/http-response.adoc[]
+
+'''
+
+[[overview-http-verbs3]]
+=== Add Model
+
+==== Request
+include::{snippets}/model/addModel/http-request.adoc[]
+
+==== Parameters
+include::{snippets}/model/addModel/request-fields.adoc[]
+
+==== Fields
+include::{snippets}/model/addModel/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/addModel/http-response.adoc[]
+
+'''
+
+[[overview-http-verbs4]]
+=== Delete Model
+
+==== Request
+include::{snippets}/model/deleteModel/http-request.adoc[]
+
+==== Parameters
+include::{snippets}/model/deleteModel/path-parameters.adoc[]
+
+==== Fields
+include::{snippets}/model/deleteModel/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/deleteModel/http-response.adoc[]
+
+====== Note
+Model shouldnt have shoes linked to itself.

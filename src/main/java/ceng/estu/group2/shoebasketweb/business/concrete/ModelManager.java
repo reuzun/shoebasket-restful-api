@@ -16,10 +16,8 @@ import ceng.estu.group2.shoebasketweb.requests.ModelRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -105,8 +103,20 @@ public class ModelManager implements ModelService {
     }
 
     @Override
+    public Result deleteModel(int modelId) {
+        this.modelDao.delete(this.modelDao.getById(modelId));
+        //this.modelDao.deleteByModelId(modelId);
+        return new SuccessResult("Model Deleted.");
+    }
+
+    @Override
     public DataResult<ModelDto> getById(int id) {
         return new SuccessDataResult<>(ModelConverter.ModelToModelDto(this.modelDao.getById(id)), "success");
+    }
+
+    @Override
+    public DataResult<List<Model>> getAllByModelNameAndBrandNameOrderByModelIdDesc(String modelName, String brandName) {
+        return new SuccessDataResult<>(  this.modelDao.getAllByModelNameAndBrandNameOrderByModelIdDesc(modelName, brandName) );
     }
 
     @Override

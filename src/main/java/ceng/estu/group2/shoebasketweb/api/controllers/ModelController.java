@@ -12,6 +12,7 @@ import ceng.estu.group2.shoebasketweb.requests.ModelRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -91,4 +92,13 @@ public class ModelController {
         return this.modelService.updateModel(id, modelRequest);
     }
 
+    @DeleteMapping("/{id}")
+    public Result deleteModel(@PathVariable int id) {
+        return this.modelService.deleteModel(id);
+    }
+
+    @GetMapping("/")
+    public DataResult<Model> getAllByModelNameAndBrandNameOrderByModelIdDesc(String modelName, String brandName){
+        return null; // Not implemented yet.
+    }
 }
