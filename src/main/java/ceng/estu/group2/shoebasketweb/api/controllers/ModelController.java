@@ -3,6 +3,7 @@ package ceng.estu.group2.shoebasketweb.api.controllers;
 import ceng.estu.group2.shoebasketweb.business.abstracts.ModelService;
 import ceng.estu.group2.shoebasketweb.core.util.results.DataResult;
 import ceng.estu.group2.shoebasketweb.core.util.results.Result;
+import ceng.estu.group2.shoebasketweb.core.util.results.SuccessDataResult;
 import ceng.estu.group2.shoebasketweb.dto.ModelDto;
 import ceng.estu.group2.shoebasketweb.dto.RatedModelsDto;
 import ceng.estu.group2.shoebasketweb.entities.Model;
@@ -97,8 +98,9 @@ public class ModelController {
         return this.modelService.deleteModel(id);
     }
 
-    @GetMapping("/")
-    public DataResult<Model> getAllByModelNameAndBrandNameOrderByModelIdDesc(String modelName, String brandName){
-        return null; // Not implemented yet.
-    }
+    /*@GetMapping("/")
+    public DataResult<List<Model>> getAllByModelNameContainsAndBrandNameContainsOrderByModelIdDesc(@RequestParam(required = false, defaultValue = "") String modelName,
+                                                                                     @RequestParam(required = false, defaultValue = "") String brandName){
+        return this.modelService.getAllByModelNameContainsAndBrandNameContainsOrderByModelIdDesc(modelName, brandName) ;
+    }*/
 }

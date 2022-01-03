@@ -115,8 +115,8 @@ public class ModelManager implements ModelService {
     }
 
     @Override
-    public DataResult<List<Model>> getAllByModelNameAndBrandNameOrderByModelIdDesc(String modelName, String brandName) {
-        return new SuccessDataResult<>(  this.modelDao.getAllByModelNameAndBrandNameOrderByModelIdDesc(modelName, brandName) );
+    public DataResult<List<Model>> getAllByModelNameContainsAndBrandNameContainsOrderByModelIdDesc(String modelName, String brandName) {
+        return new SuccessDataResult<>(  this.modelDao.getAllByModelNameContainsAndBrandNameContainsOrderByModelIdDesc(modelName, brandName) );
     }
 
     @Override

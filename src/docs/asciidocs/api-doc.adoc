@@ -62,54 +62,37 @@
 ++++
 
 
-[[overview]]
-== Overview
+[[hello]]
+== Hello
 This is the documentation of shoebasket api.
 
-[[overview-Model]]
+[[Model]]
 == Model
 
-[[overview-http-verbs]]
-=== Random Model
+[[GetModel]]
+=== Get Model
 
 ==== Request
-include::{snippets}/model/getRandomModels/http-request.adoc[]
+include::{snippets}/model/getModelById/http-request.adoc[]
 
 ==== Parameters
-include::{snippets}/model/getRandomModels/request-parameters.adoc[]
+include::{snippets}/model/getModelById/path-parameters.adoc[]
 
 ==== Fields
-include::{snippets}/model/getRandomModels/response-fields.adoc[]
+include::{snippets}/model/getModelById/response-fields.adoc[]
 
 ==== Example Response
-include::{snippets}/model/getRandomModels/http-response.adoc[]
+include::{snippets}/model/getModelById/http-response.adoc[]
 
 '''
 
-[[overview-http-verbs2]]
-=== Shoes of Model
-
-==== Request
-include::{snippets}/model/getShoesOfModel/http-request.adoc[]
-
-==== Parameters
-include::{snippets}/model/getShoesOfModel/path-parameters.adoc[]
-
-==== Fields
-include::{snippets}/model/getShoesOfModel/response-fields.adoc[]
-
-==== Example Response
-include::{snippets}/model/getShoesOfModel/http-response.adoc[]
-
-'''
-
-[[overview-http-verbs3]]
+[[AddModel]]
 === Add Model
 
 ==== Request
 include::{snippets}/model/addModel/http-request.adoc[]
 
-==== Parameters
+==== Body Parameters
 include::{snippets}/model/addModel/request-fields.adoc[]
 
 ==== Fields
@@ -120,7 +103,7 @@ include::{snippets}/model/addModel/http-response.adoc[]
 
 '''
 
-[[overview-http-verbs4]]
+[[DeleteModel]]
 === Delete Model
 
 ==== Request
@@ -137,3 +120,122 @@ include::{snippets}/model/deleteModel/http-response.adoc[]
 
 ====== Note
 Model shouldnt have shoes linked to itself.
+
+'''
+
+
+[[UpdateModel]]
+=== Update Model
+
+==== Request
+include::{snippets}/model/updateModel/http-request.adoc[]
+
+==== Body Parameters
+include::{snippets}/model/updateModel/request-fields.adoc[]
+
+==== Path Parameters
+include::{snippets}/model/updateModel/path-parameters.adoc[]
+
+==== Fields
+include::{snippets}/model/updateModel/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/updateModel/http-response.adoc[]
+
+
+
+'''
+
+[[UpdatePrice]]
+=== Update Price
+
+==== Request
+include::{snippets}/model/updatePrice/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/model/updatePrice/path-parameters.adoc[]
+
+==== Query Parameters
+include::{snippets}/model/updatePrice/request-parameters.adoc[]
+
+==== Fields
+include::{snippets}/model/updatePrice/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/updatePrice/http-response.adoc[]
+
+'''
+
+[[ShoesOfModel]]
+=== Shoes of Model
+
+==== Request
+include::{snippets}/model/getShoesOfModel/http-request.adoc[]
+
+==== Parameters
+include::{snippets}/model/getShoesOfModel/path-parameters.adoc[]
+
+==== Fields
+include::{snippets}/model/getShoesOfModel/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/getShoesOfModel/http-response.adoc[]
+
+'''
+
+
+
+
+[[ModelRates]]
+=== Model Rates
+
+==== Request
+include::{snippets}/model/getRates/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/model/getRates/path-parameters.adoc[]
+
+==== Fields
+include::{snippets}/model/getRates/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/getRates/http-response.adoc[]
+
+'''
+
+[[RateModel]]
+=== Rate Model
+
+==== Request
+include::{snippets}/model/rateModel/http-request.adoc[]
+
+==== Path Parameters
+include::{snippets}/model/rateModel/path-parameters.adoc[]
+
+==== Body Parameters
+include::{snippets}/model/updateModel/request-fields.adoc[]
+
+==== Fields
+include::{snippets}/model/rateModel/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/rateModel/http-response.adoc[]
+
+'''
+
+
+
+[[RandomModel]]
+=== Random Model
+
+==== Request
+include::{snippets}/model/getRandomModels/http-request.adoc[]
+
+==== Parameters
+include::{snippets}/model/getRandomModels/request-parameters.adoc[]
+
+==== Fields
+include::{snippets}/model/getRandomModels/response-fields.adoc[]
+
+==== Example Response
+include::{snippets}/model/getRandomModels/http-response.adoc[]

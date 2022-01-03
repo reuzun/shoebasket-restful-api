@@ -15,6 +15,6 @@ public interface ModelDao extends JpaRepository<Model, Integer> {
 
     public Result deleteByModelId(int modelId);
 
-    public List<Model> getAllByModelNameAndBrandNameOrderByModelIdDesc(String modelName, String brandName);
+    public List<Model> getAllByModelNameContainsAndBrandNameContainsOrderByModelIdDesc(String modelName, String brandName);
 
 }
