@@ -23,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/models")
+@CrossOrigin
 public class ModelController {
 
     private final ModelService modelService;
