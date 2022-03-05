@@ -9,11 +9,10 @@ export default function SignIn() {
                 <CartSummary />
                 
                 <DropdownButton variant="success" id="dropdown-basic-button" title="Efe Uzun"  style={{marginLeft : "15px"}}>
-                    <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    <Dropdown.Item href="#/action-1">Buy History</Dropdown.Item>
+                    <Dropdown.Item href="#/action-2">Rating History</Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item href="#/action-4">Separated link</Dropdown.Item>
+                    <Dropdown.Item href="#/action-4">Log Out</Dropdown.Item>
                 </DropdownButton>
             </Container>
         </div>

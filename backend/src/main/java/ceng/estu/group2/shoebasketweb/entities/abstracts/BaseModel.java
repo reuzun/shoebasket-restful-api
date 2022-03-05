@@ -20,4 +20,5 @@ public abstract class BaseModel {
     private String brandName;
     private String type;
     private double price;
+    private Double customerRating;
 }

@@ -20,6 +20,7 @@ public class ModelDto extends BaseModel {
     private String brandName;
     private String type;
     private double price;
+    private Double customerRating;
     List<String> colors;
     List<Integer> sizes;
 }

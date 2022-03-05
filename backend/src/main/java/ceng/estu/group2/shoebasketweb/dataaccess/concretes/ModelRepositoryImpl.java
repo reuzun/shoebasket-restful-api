@@ -28,7 +28,7 @@ public class ModelRepositoryImpl implements ModelCustomRepository {
      * */
     @Override
     public DataResult<List<ModelDto>> getRandomModel(int limit) {
-        return new SuccessDataResult(entityManager.createQuery("SELECT p FROM Model p ORDER BY RAND()",
+        return new SuccessDataResult(entityManager.createQuery("SELECT p FROM Model p WHERE p.customerRating > 0 ORDER BY RAND() ",
                 Model.class).setMaxResults(limit).getResultList().stream().map(ModelConverter::ModelToModelDto));
     }
 }

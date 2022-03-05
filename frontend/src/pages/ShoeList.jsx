@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Card, Button, Container, Row, Col } from 'react-bootstrap'
 import ShoeService from '../services/ShoeService'
+import Rating from "react-rating";
 
 let renderImage = (type) => {
     if (type == "Heel") {
@@ -36,21 +37,24 @@ export default function ShoeList() {
                         models.map(e => (
                             <Col className="col-3">
                                 <Card style={{ width: '15rem', marginRight: "15px", marginBottom: "15px" }}>
-                                    <Card.Img style={{ maxWidth: "80px", maxHeight: "80px", minHeight: "80px", marginLeft: "70px" }} variant="top" src={renderImage(e.type)} />
+                                    <Card.Img style={{ maxWidth: "80px", maxHeight: "80px", minHeight: "80px", marginLeft: "80px" }} variant="top" src={renderImage(e.type)} />
                                     <Card.Body>
                                         <Card.Title>{e.brandName} - {e.modelName}</Card.Title>
                                         <Card.Text>
-                                            Price : {e.price}                                            
+                                            Price : {e.price}£<br></br>
+                                            <Rating readonly initialRating={e.customerRating}
+                                                emptySymbol={<i class="bi bi-star"></i>}
+                                                fullSymbol={<i class="bi bi-star-fill"></i>} /> {e.customerRating}
                                         </Card.Text>
                                         <Button variant="secondary">Details</Button>
-                                        <Button variant="primary" style={{marginLeft: "5px"}}>Add to Cart</Button>
+                                        <Button variant="primary" style={{ marginLeft: "5px" }}>Add to Cart</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
                         ))
                     }
                 </Row>
-                <span style={{fontSize : ".4em", fontWeight : "lighter"}}>*To see available colors and numbers press details button.</span>
+                <span style={{ fontSize: ".4em", fontWeight: "lighter" }}>*To see available colors and numbers press details button.</span>
             </Container>
         </div>
     )

@@ -45,6 +45,7 @@ public class ModelConverter {
         target.setModelName(source.getModelName());
         target.setType(source.getType());
         target.setPrice(source.getPrice());
+        target.setCustomerRating(source.getCustomerRating());
     }
 
     public static Model copyRequest(ModelRequest modelRequest){
