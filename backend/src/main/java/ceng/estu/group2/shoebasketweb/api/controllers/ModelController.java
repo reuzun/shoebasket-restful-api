@@ -85,6 +85,11 @@ public class ModelController {
         return this.modelService.getById(id);
     }
 
+    @GetMapping("/list")
+    public DataResult<List<ModelDto>> listAll() {
+        return this.modelService.list();
+    }
+
     @PostMapping("")
     public Result addModel(@RequestBody ModelRequest modelRequest) {
         return this.modelService.addModel(modelRequest);

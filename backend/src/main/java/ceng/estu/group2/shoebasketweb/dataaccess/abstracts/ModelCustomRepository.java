@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface ModelCustomRepository {
     DataResult<List<ModelDto>> getRandomModel(int limit);
+    DataResult<List<ModelDto>> getAll();
 }

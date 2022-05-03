@@ -42,4 +42,6 @@ public interface ModelService {
     DataResult<ModelDto> getById(int id);
 
     DataResult<List<Model>> getAllByModelNameContainsAndBrandNameContainsOrderByModelIdDesc(String modelName, String brandName);
+
+    DataResult<List<ModelDto>> list();
 }

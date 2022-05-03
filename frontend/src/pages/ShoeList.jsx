@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Button, Container, Row, Col } from 'react-bootstrap'
+import { Card, Button, Container, Row, Col, Pagination } from 'react-bootstrap'
 import ShoeService from '../services/ShoeService'
 import Rating from "react-rating";
+
 
 let renderImage = (type) => {
     if (type == "Heel") {
@@ -54,8 +55,18 @@ export default function ShoeList() {
                         ))
                     }
                 </Row>
-                <span style={{ fontSize: ".4em", fontWeight: "lighter" }}>*To see available colors and numbers press details button.</span>
             </Container>
+            <Pagination style={{ marginLeft: "37.5%"  }}>
+                <Pagination.First />
+                <Pagination.Prev />
+                <Pagination.Item active >{1}</Pagination.Item>
+                <Pagination.Item  >{2}</Pagination.Item>
+                <Pagination.Item  >{3}</Pagination.Item>
+                <Pagination.Item  >{4}</Pagination.Item>
+                <Pagination.Item  >{5}</Pagination.Item>
+                <Pagination.Next />
+                <Pagination.Last />
+            </Pagination>
         </div>
     )
 }

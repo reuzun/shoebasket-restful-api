@@ -120,6 +120,11 @@ public class ModelManager implements ModelService {
     }
 
     @Override
+    public DataResult<List<ModelDto>> list() {
+        return this.modelRepositoryImpl.getAll();
+    }
+
+    @Override
     public DataResult<Model> updateModel(int modelId, ModelRequest modelRequest) {
         Model model = this.modelDao.getById(modelId);
         ModelConverter.copyRequestFields(modelRequest, model);

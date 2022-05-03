@@ -21,9 +21,17 @@ export default function CategoryFilter() {
                     <Form.Label>Model Name</Form.Label>
                     <Form.Control type="text" placeholder="Model Name" />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Brand Name</Form.Label>
                     <Form.Control type="text" placeholder="Brand Name" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Color</Form.Label>
+                    <Form.Control type="text" placeholder="Color" />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Number</Form.Label>
+                    <Form.Control type="text" placeholder="Number" />
                 </Form.Group>
                 <hr></hr>
                 <Form.Label>Type</Form.Label>
